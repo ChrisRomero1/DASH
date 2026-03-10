@@ -1,0 +1,75 @@
+You are helping me continue building my business dashboard app called "Reli AI OS". Read ALL attached files before responding. Here is full context:
+
+---
+
+ABOUT ME:
+- I'm Chris, 18 years old, Chattanooga TN
+- I run Reli AI — an AI voice receptionist agency using Retell AI
+- I sell to local service businesses (barbershops, salons, roofers, plumbers)
+- Pricing: $400/mo (Starter), $500/mo (Growth), $700/mo (Pro) + setup fee
+- Goal this year: get enough clients to buy a BMW M3 G80
+
+---
+
+THE APP — RELI AI OS:
+A full business operating system dashboard built with React, deployed on Netlify at relidash.netlify.app
+
+SIDEBAR NAVIGATION:
+- Dashboard, Clients, Milestones, Payments, Daily Goals, AI Assistant
+- INTEGRATIONS: API & Webhooks
+- OUTREACH: SMS Generator, Email Generator, DM Generator, LinkedIn Content, AB Tester, Outreach Stats
+- CLOSING: Objection Handler, Call Script, Offer Generator, ROI Calculator, Proposal Generator, Case Study, Contract Generator
+- CLIENTS: Onboarding Checklist, Niche Research, Retell Prompt Gen
+- CONTENT: Instagram Captions, Facebook Posts, Cold Call Openers
+- TOOLS: Follow-Up Scheduler, Website Builder
+
+TECH STACK:
+- Frontend: React 18 (Babel standalone, everything in index.html — single file)
+- Styling: all inline styles, dark theme (#050914 bg, #6366f1 accent)
+- Backend: Netlify serverless functions (ES modules .mjs files)
+- Database: Neon Postgres via @netlify/neon (auto-connected via Netlify extension)
+- AI: Anthropic Claude claude-sonnet-4-20250514 via /api/claude proxy function
+- ANTHROPIC_API_KEY stored as Netlify environment variable
+
+FILE STRUCTURE:
+chatgpt-relidash/
+  reli-dashboard.jsx     ← full React source (edit this when making changes)
+  index.html             ← built version of reli-dashboard.jsx (needs to be rebuilt after changes)
+  netlify.toml           ← routes /api/* to netlify functions
+  package.json           ← has @netlify/neon dependency
+  netlify/
+    functions/
+      claude.mjs         ← proxies all AI calls to Anthropic API securely
+      clients.mjs        ← GET/POST/DELETE clients in Postgres DB
+      integrations.mjs   ← GET/POST integrations/API keys in Postgres DB
+
+HOW THE STORE WORKS:
+- Module-level `store` object with pub/sub listeners via useStore() hook
+- On app load: fetches /api/clients and /api/integrations from Neon DB
+- Shows loading screen while DB loads (store.loaded flag)
+- addClient(client) → optimistic update + POST /api/clients
+- removeClient(id) → optimistic update + DELETE /api/clients  
+- saveIntegration(key, value) → optimistic update + POST /api/integrations
+- All components read from store via useStore() hook
+
+HOW TO REBUILD index.html AFTER CHANGES:
+When you edit reli-dashboard.jsx, rebuild index.html by:
+1. Remove all `import ... from '...'` lines
+2. Change `export default function ReliOS()` to `function ReliOS()`
+3. Wrap in the HTML boilerplate (React/ReactDOM/Babel CDN scripts + <div id="root"> + Babel script tag)
+4. The const { useState, useEffect, useRef, useCallback } = React; line goes at top of the Babel script
+
+DEPLOYING:
+- Drag the entire project folder onto Netlify Deploys page
+- ANTHROPIC_API_KEY and NETLIFY_DATABASE_URL are already set in Netlify env variables
+
+---
+
+WHAT I NEED HELP WITH:
+[DESCRIBE YOUR ISSUE HERE]
+
+When making changes:
+- Always give me the FULL updated file, not snippets
+- If you change reli-dashboard.jsx, also give me the rebuilt index.html
+- Keep all styling inline (no CSS files)
+- Keep everything in single files (no splitting components into separate files)
